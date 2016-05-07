@@ -1,0 +1,10 @@
+{
+    "@metadata": {
+        "authors": [
+            "Genesys Technical Publications"
+        ]
+    },
+    "jiratowiki": "Jira to Wiki",
+    "jiratowiki-desc": "Creates release notes based on jira issues.",
+    "jiratowiki-summary": "Connect to the JiraToWiki Jira plugin to create release notes."
+}
