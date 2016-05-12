@@ -1,0 +1,47 @@
+#macro (getReleaseNoteComment $issue $customFieldManager)
+#set ($customFields = $customFieldManager.getCustomFieldObjects($issue.project.getLong("id"), $issue.issueType.getString("id")))
+#foreach($customField in $customFields)
+#if($customField.name.equals("Release Note"))
+#if($customField.getValue($issue)) 
+$customField.getValue($issue)
+#end
+#end
+#end
+#end 
+
+#macro (checkReleaseNoteComment $issue $customFieldManager)
+#set ($customFields = $customFieldManager.getCustomFieldObjects($issue.project.getLong("id"), $issue.issueType.getString("id")))
+#foreach($customField in $customFields)
+#if($customField.name.equals("Release Note"))
+#if($customField.getValue($issue)) 
+#set ($rncheck = true)
+#else
+#set ($rncheck = false)
+#end
+#end
+#end
+#end 
+
+
+#foreach( $issue in $issues )
+  <div id="$!issue.key" class="issue-div">
+  
+	<fieldset>
+	  	
+  
+	<legend>$!issue.key</legend>
+	<p>
+#getReleaseNoteComment($issue $customFieldManager)
+	</p>
+	<div id="divIssueType-$!issue.key">
+	<input type="hidden" name="issueKey-$!issue.key" value="$!issue.key">
+	<label for="IssueType-$!issue.key">Issue Type:</label>
+	<input type="radio" name="issueType-$!issue.key" value="new">New Feature</input><br>
+	<input type="radio" name="issueType-$!issue.key" value="correction">Correction</input><br>
+	<input type="radio" name="issueType-$!issue.key" value="known">Known Issue</input><br>
+	</div>
+	<input type="hidden" name="issueField-$!issue.key" value="#getReleaseNoteComment($issue $customFieldManager)">
+	</fieldset>
+	</div>
+  #end
+
