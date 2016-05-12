@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+  <plugin-info>
+    <description>${project.description}</description>
+    <version>${project.version}</version>
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    <param name="plugin-icon">images/pluginIcon.png</param>
+    <param name="plugin-logo">images/pluginLogo.png</param>
+  </plugin-info>
+  <!-- add our i18n resource -->
+  <resource type="i18n" name="i18n" location="releasenote"/>
+  <!-- add our web resources -->
+  <web-resource key="releasenote-resources" name="releasenote Web Resources">
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <resource type="download" name="releasenote.css" location="/css/releasenote.css"/>
+    <resource type="download" name="releasenote.js" location="/js/releasenote.js"/>
+    <resource type="download" name="images/" location="/images"/>
+    <context>releasenote</context>
+  </web-resource>
+  <search-request-view name="Release Note View" i18n-name-key="release-note-view.name" key="release-note-view" class="com.genesys.techpubs.jira.search.ReleaseNoteView" fileExtension="html" contentType="text/html">
+    <description key="release-note-view.description">The Release Note View Plugin</description>
+    <resource name="header" type="velocity" location="/templates/search/release-note-view/header.vm"/>
+    <resource name="singleissue" type="velocity" location="/templates/search/release-note-view/singleissue.vm"/>
+    <resource name="footer" type="velocity" location="/templates/search/release-note-view/footer.vm"/>
+    <order>10</order>
+  </search-request-view>
+</atlassian-plugin>
